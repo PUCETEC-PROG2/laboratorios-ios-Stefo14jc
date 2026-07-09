@@ -10,7 +10,17 @@ struct Profile: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Perfil de Usuario!")
+                Text("Stefano Joel Espinosa")
+                    .font(.title)
+                Image(uiImage: .githubLogo)
+                    .resizable()
+                    .scaledToFit()
+                Text("Stefojc14")
+                    .font(.headline)
+                    .padding(.vertical)
+                Text("Esto es la biografia del perfil")
+                    .font(.caption)
+                
             }
             .navigationTitle("Perfil")
             .navigationBarTitleDisplayMode(.inline)
