@@ -26,12 +26,14 @@ struct RepoForm: View {
                     .lineLimit(4...10)
                     .padding()
                 Spacer()
-                Button(action: {
+                Button(action: {    
                     print ("Botón Aplastado")
                     
                 }){
                     Label("Guardar Repositorio", systemImage: "square.and.arrow.down")
                         .padding(.all, 5)
+                        .frame(maxWidth:.infinity)
+                        
                 }
                 .buttonStyle(.borderedProminent)
             }
