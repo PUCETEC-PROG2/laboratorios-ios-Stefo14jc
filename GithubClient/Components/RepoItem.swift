@@ -2,38 +2,63 @@
 //  RepoItem.swift
 //  GithubClient
 //
-//  Created by Usuario invitado on 9/7/26.
+//  Created by Sebastian Rojas on 9/7/26.
 //
 
 import SwiftUI
 
 struct RepoItem: View {
+
+    let repository: Repository
+
     var body: some View {
-        HStack{
-            Image(uiImage: .githubLogo)
-                .resizable()
-                .frame(width:70, height: 70)
-                
-            VStack (alignment: .leading){
-                Text("Nombre del Repositorio")
-                    .font(.title2)
-                Text("Es un texto de relleno de las imprentas y archivos de texto.")
-                    .font(.caption)
-                    .padding(.top, 0.1)
-                HStack{
-                    Text("Lenguaje")
-                        .fontWeight(.bold)
-                    Spacer()
-                    Text("Swift")
-                }
-                .font(.caption2)
-                .padding(.top, 0.1)
+        HStack {
+            AsyncImage(url: URL(string: repository.owner.avatarUrl)) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+            } placeholder: {
+                Image(uiImage: .githubLogo)
+                    .resizable()
+                    .scaledToFit()
             }
+            .frame(width: 80, height: 80)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text(repository.name)
+                    .font(.title2)
+                    .foregroundStyle(.accent)
+
+                if let description = repository.description {
+                    Text(description)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(2)
+                }
+
+                if let language = repository.language {
+                    HStack {
+                        Text("Lenguaje:")
+                            .fontWeight(.semibold)
+
+                        Text(language)
+                            .foregroundStyle(.blue)
+                    }
+                    .font(.caption)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding()
+        .background(.thinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .shadow(color: .black.opacity(0.08), radius: 5, y: 2)
+        .padding(.horizontal)
     }
 }
 
 #Preview {
-    RepoItem()
+    RepoItem(repository: Repository.sampleData[0])
+        .padding()
 }
